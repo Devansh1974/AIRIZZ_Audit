@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIRIZZ — Complete Website Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Bricolage+Grotesque:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* ── AIRIZZ BRAND PALETTE (extracted from logo: deep navy → teal → cyan) ── */
+  --brand-dark:    #040d1a;
+  --brand-navy:    #071428;
+  --brand-mid:     #0d2040;
+  --brand-teal:    #0b7a75;
+  --brand-cyan:    #00c2cb;
+  --brand-electric:#00e5ff;
+  --brand-blue:    #1a6bcc;
+  --brand-steel:   #2d5fa6;
+
+  /* ── SEMANTIC ── */
+  --bg:        #040d1a;
+  --bg2:       #071428;
+  --bg3:       #0d1e38;
+  --surface:   #0f2040;
+  --surface2:  #152848;
+  --border:    rgba(0,194,203,0.12);
+  --border2:   rgba(0,194,203,0.25);
+  --text:      #e8f4f8;
+  --text2:     #7eb8c9;
+  --text3:     #3a6b7a;
+  --accent:    #00c2cb;
+  --accent2:   #00e5ff;
+  --glow:      rgba(0,194,203,0.15);
+  --glow2:     rgba(0,229,255,0.08);
+
+  /* STATUS */
+  --red:       #ff4d6d; --red-bg:   rgba(255,77,109,0.1);
+  --amber:     #ffb347; --amber-bg: rgba(255,179,71,0.1);
+  --green:     #39d98a; --green-bg: rgba(57,217,138,0.1);
+  --blue-hi:   #4da6ff; --blue-bg:  rgba(77,166,255,0.1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:15px;
+  line-height:1.65;
+}
+
+/* ────── SCROLLBAR ────── */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--brand-teal);border-radius:4px;}
+
+/* ────── GRID LINES BACKGROUND ────── */
+body::before{
+  content:'';
+  position:fixed;top:0;left:0;right:0;bottom:0;
+  background-image:
+    linear-gradient(rgba(0,194,203,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,194,203,0.03) 1px, transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;z-index:0;
+}
+
+/* ────── TOP NAV ────── */
+.topnav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(4,13,26,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;
+  padding:0 1.5rem;height:54px;gap:2px;
+  overflow-x:auto;
+}
+.topnav::-webkit-scrollbar{display:none;}
+.brand{
+  font-family:'Clash Display',sans-serif;
+  font-weight:700;font-size:15px;
+  background:linear-gradient(135deg,var(--brand-cyan),var(--brand-electric));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-right:1.5rem;white-space:nowrap;flex-shrink:0;letter-spacing:-.01em;
+}
+.nav-link{
+  font-size:12px;font-weight:500;color:var(--text3);
+  padding:5px 10px;border-radius:6px;cursor:pointer;
+  white-space:nowrap;transition:color .15s,background .15s;
+  text-decoration:none;flex-shrink:0;
+}
+.nav-link:hover{color:var(--text);background:var(--surface);}
+.nav-link.active{color:var(--accent);background:rgba(0,194,203,0.08);}
+
+/* ────── HERO ────── */
+.hero{
+  position:relative;
+  padding:4rem 2rem 3rem;
+  max-width:900px;margin:0 auto;
+  text-align:center;
+}
+.hero-glow{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-60%);
+  width:600px;height:400px;
+  background:radial-gradient(ellipse,rgba(0,194,203,0.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.version-tag{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(0,194,203,0.08);
+  border:1px solid var(--border2);
+  border-radius:999px;padding:5px 16px;
+  font-size:11px;font-weight:600;color:var(--accent);
+  margin-bottom:1.5rem;letter-spacing:.06em;text-transform:uppercase;
+}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,194,203,.4);}50%{box-shadow:0 0 0 6px rgba(0,194,203,0);}}
+
+.hero h1{
+  font-family:'Clash Display',sans-serif;
+  font-size:clamp(2rem,5vw,3.4rem);
+  font-weight:700;line-height:1.08;letter-spacing:-.03em;
+  background:linear-gradient(135deg,#e8f4f8 20%,var(--brand-cyan) 60%,var(--brand-electric));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:1rem;
+}
+.hero-sub{font-size:15px;color:var(--text2);max-width:580px;margin:0 auto 2rem;line-height:1.7;}
+.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:0;}
+.chip{
+  display:flex;align-items:center;gap:6px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:999px;padding:5px 13px;
+  font-size:12px;color:var(--text2);
+}
+.chip-dot{width:6px;height:6px;border-radius:50%;}
+
+/* ────── DIVIDER ────── */
+.divider{
+  height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);
+  margin:0 2rem;
+}
+
+/* ────── SECTION ────── */
+.section{padding:3rem 2rem;max-width:1200px;margin:0 auto;position:relative;z-index:1;}
+.section-header{margin-bottom:2rem;}
+.section-eyebrow{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;font-weight:500;
+  color:var(--accent);letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:6px;display:flex;align-items:center;gap:8px;
+}
+.section-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--accent);}
+.section-title{
+  font-family:'Clash Display',sans-serif;
+  font-size:clamp(1.4rem,3vw,2rem);font-weight:700;
+  letter-spacing:-.025em;color:var(--text);margin-bottom:8px;
+}
+.section-desc{font-size:14px;color:var(--text2);max-width:640px;line-height:1.7;}
+
+/* ────── PALETTE SWATCHES ────── */
+.swatch-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.5rem;}
+.swatch{
+  flex:1;min-width:110px;border-radius:10px;overflow:hidden;
+  border:1px solid var(--border);
+}
+.swatch-color{height:60px;}
+.swatch-info{padding:8px 10px;background:var(--surface);}
+.swatch-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:1px;}
+.swatch-hex{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);}
+.swatch-use{font-size:11px;color:var(--text2);margin-top:3px;}
+
+/* ────── PAGE CARD ────── */
+.page-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;padding:0;
+  margin-bottom:1.5rem;overflow:hidden;
+  transition:border-color .2s;
+}
+.page-card:hover{border-color:var(--border2);}
+.page-card-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.4rem;
+  border-bottom:1px solid var(--border);
+  gap:12px;flex-wrap:wrap;
+}
+.page-card-title{
+  font-family:'Clash Display',sans-serif;
+  font-size:15px;font-weight:600;color:var(--text);
+  display:flex;align-items:center;gap:10px;
+}
+.page-icon{
+  width:32px;height:32px;border-radius:8px;
+  background:rgba(0,194,203,0.1);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;font-size:15px;
+  flex-shrink:0;
+}
+.status-tag{
+  font-size:10px;font-weight:700;padding:3px 10px;border-radius:999px;
+  letter-spacing:.05em;text-transform:uppercase;flex-shrink:0;
+}
+.status-new{background:var(--red-bg);color:var(--red);}
+.status-upgrade{background:var(--amber-bg);color:var(--amber);}
+.status-exists{background:var(--green-bg);color:var(--green);}
+.status-legal{background:var(--blue-bg);color:var(--blue-hi);}
+
+.page-card-body{padding:1.2rem 1.4rem;}
+.segment-list{display:flex;flex-direction:column;gap:8px;}
+.segment{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:10px;padding:.85rem 1rem;
+}
+.segment-name{
+  font-size:13px;font-weight:600;color:var(--accent);
+  display:flex;align-items:center;gap:8px;margin-bottom:6px;
+}
+.seg-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--text3);
+  background:var(--surface2);padding:2px 6px;border-radius:4px;
+}
+.segment-desc{font-size:13px;color:var(--text2);line-height:1.6;}
+.segment-note{
+  margin-top:6px;font-size:12px;color:var(--text3);
+  border-top:1px solid var(--border);padding-top:6px;
+  font-family:'JetBrains Mono',monospace;
+}
+
+/* ────── ANIMATION CARD ────── */
+.anim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:1.5rem;}
+.anim-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:1rem 1.1rem;
+  transition:border-color .2s,transform .15s;
+}
+.anim-card:hover{border-color:var(--border2);transform:translateY(-2px);}
+.anim-type{
+  font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px;
+  font-family:'JetBrains Mono',monospace;
+}
+.anim-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:5px;}
+.anim-desc{font-size:12px;color:var(--text2);line-height:1.55;}
+.anim-tech{
+  margin-top:8px;font-size:11px;color:var(--accent);
+  background:rgba(0,194,203,0.07);padding:3px 8px;border-radius:5px;
+  display:inline-block;font-family:'JetBrains Mono',monospace;
+}
+
+/* ────── TECH STACK ────── */
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:1.5rem;}
+.tech-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:10px;padding:.8rem 1rem;text-align:center;
+}
+.tech-name{font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.tech-role{font-size:11px;color:var(--text3);}
+
+/* ────── CTA CALLOUT ────── */
+.callout{
+  background:linear-gradient(135deg,rgba(0,194,203,0.1),rgba(0,229,255,0.04));
+  border:1px solid var(--border2);
+  border-radius:14px;padding:1.3rem 1.6rem;margin:1.5rem 0;
+  display:flex;gap:14px;align-items:flex-start;
+}
+.callout-ico{font-size:1.4rem;flex-shrink:0;}
+.callout-title{
+  font-family:'Clash Display',sans-serif;
+  font-size:14px;font-weight:600;color:var(--accent);margin-bottom:4px;
+}
+.callout-body{font-size:13px;color:var(--text2);line-height:1.6;}
+
+/* ────── FEATURE TABLE ────── */
+.feat-table-wrap{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;margin-bottom:1.5rem;
+}
+.feat-table{width:100%;border-collapse:collapse;font-size:13px;}
+.feat-table th{
+  text-align:left;padding:10px 14px;
+  font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--text3);border-bottom:1px solid var(--border);
+  font-family:'JetBrains Mono',monospace;
+}
+.feat-table td{
+  padding:11px 14px;border-bottom:1px solid var(--border);
+  vertical-align:top;line-height:1.5;color:var(--text2);
+}
+.feat-table tr:last-child td{border-bottom:none;}
+.feat-table tr:hover td{background:var(--surface2);}
+.feat-table td:first-child{color:var(--text);font-weight:500;}
+
+/* ────── INFO ROW ────── */
+.info-row{
+  display:flex;flex-wrap:wrap;gap:10px;margin-bottom:1.5rem;
+}
+.info-pill{
+  display:flex;align-items:center;gap:8px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:999px;padding:6px 14px;font-size:12px;color:var(--text2);
+}
+.ip-dot{width:6px;height:6px;border-radius:50%;}
+
+/* ────── SCROLL FADE ────── */
+.fade-up{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
+.fade-up.visible{opacity:1;transform:translateY(0);}
+
+/* ────── FOOTER ────── */
+footer{
+  padding:2.5rem 2rem;text-align:center;
+  border-top:1px solid var(--border);
+  position:relative;z-index:1;
+}
+footer p{font-size:13px;color:var(--text3);}
+footer strong{color:var(--text2);}
+
+/* ────── RESPONSIVE ────── */
+@media(max-width:640px){
+  .topnav{padding:0 1rem;}
+  .hero{padding:2.5rem 1.2rem 2rem;}
+  .section{padding:2rem 1.2rem;}
+  .feat-table th:nth-child(3),.feat-table td:nth-child(3){display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ════ NAV ════ -->
+<nav class="topnav">
+  <span class="brand">AIRIZZ BLUEPRINT</span>
+  <a class="nav-link active" href="#design-system">Design System</a>
+  <a class="nav-link" href="#animations">Animations</a>
+  <a class="nav-link" href="#home">Homepage</a>
+  <a class="nav-link" href="#services">Services</a>
+  <a class="nav-link" href="#about">About</a>
+  <a class="nav-link" href="#case-studies">Case Studies</a>
+  <a class="nav-link" href="#blog">Blog</a>
+  <a class="nav-link" href="#industries">Industries</a>
+  <a class="nav-link" href="#pricing">Pricing</a>
+  <a class="nav-link" href="#contact">Contact</a>
+  <a class="nav-link" href="#legal">Legal</a>
+  <a class="nav-link" href="#careers">Careers</a>
+  <a class="nav-link" href="#tech-stack">Tech Stack</a>
+</nav>
+
+<!-- ════ HERO ════ -->
+<div class="hero" style="position:relative;">
+  <div class="hero-glow"></div>
+  <div class="version-tag"><span class="pulse"></span>Complete Website Blueprint — v1.0</div>
+  <h1>AIRIZZ Website<br>Complete Build Blueprint</h1>
+  <p class="hero-sub">Every page, every section, every segment — designed header to footer. Colors, animations, components, and copy direction all in one document before a single line of code is written.</p>
+  <div class="hero-chips">
+    <span class="chip"><span class="chip-dot" style="background:var(--red)"></span>12 Pages Mapped</span>
+    <span class="chip"><span class="chip-dot" style="background:var(--amber)"></span>60+ Sections</span>
+    <span class="chip"><span class="chip-dot" style="background:var(--green)"></span>Full Design System</span>
+    <span class="chip"><span class="chip-dot" style="background:var(--accent)"></span>Animation Spec</span>
+    <span class="chip"><span class="chip-dot" style="background:var(--blue-hi)"></span>Meeting Scheduler</span>
+    <span class="chip"><span class="chip-dot" style="background:var(--brand-cyan)"></span>Cookie Consent</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION 1 — DESIGN SYSTEM
+════════════════════════════════════════ -->
+<section class="section fade-up" id="design-system">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 01</div>
+    <div class="section-title">Design System & Brand Tokens</div>
+    <div class="section-desc">Extracted from the AIRIZZ logo (deep navy → teal → electric cyan gradient). Every color, font, and spacing decision stems from this. Use CSS variables throughout — no hardcoded hex values in components.</div>
+  </div>
+
+  <!-- Color Palette -->
+  <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'JetBrains Mono',monospace;">01A · COLOR PALETTE</div>
+  <div class="swatch-row">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#040d1a;"></div>
+      <div class="swatch-info"><div class="swatch-name">Deep Navy</div><div class="swatch-hex">#040d1a</div><div class="swatch-use">Primary background</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#071428;"></div>
+      <div class="swatch-info"><div class="swatch-name">Dark Navy</div><div class="swatch-hex">#071428</div><div class="swatch-use">Section alternates</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0d2040;"></div>
+      <div class="swatch-info"><div class="swatch-name">Midnight</div><div class="swatch-hex">#0d2040</div><div class="swatch-use">Card surfaces</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0b7a75;"></div>
+      <div class="swatch-info"><div class="swatch-name">Brand Teal</div><div class="swatch-hex">#0b7a75</div><div class="swatch-use">Logo match, borders</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#00c2cb;"></div>
+      <div class="swatch-info"><div class="swatch-name">Accent Cyan</div><div class="swatch-hex">#00c2cb</div><div class="swatch-use">CTAs, highlights</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#00e5ff;"></div>
+      <div class="swatch-info"><div class="swatch-name">Electric</div><div class="swatch-hex">#00e5ff</div><div class="swatch-use">Hero glows, hover</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#1a6bcc;"></div>
+      <div class="swatch-info"><div class="swatch-name">Royal Blue</div><div class="swatch-hex">#1a6bcc</div><div class="swatch-use">Secondary accents</div></div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#e8f4f8;"></div>
+      <div class="swatch-info"><div class="swatch-name">Ice White</div><div class="swatch-hex">#e8f4f8</div><div class="swatch-use">Primary text</div></div>
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'JetBrains Mono',monospace;margin-top:1.5rem;">01B · TYPOGRAPHY SYSTEM</div>
+  <div class="feat-table-wrap">
+    <table class="feat-table">
+      <thead><tr><th>Role</th><th>Font</th><th>Weight</th><th>Size / Usage</th></tr></thead>
+      <tbody>
+        <tr><td>Display / Hero Headings</td><td>Clash Display</td><td>700</td><td>clamp(2rem,5vw,3.5rem) — page titles, hero H1</td></tr>
+        <tr><td>Section Headings</td><td>Clash Display</td><td>600</td><td>clamp(1.4rem,3vw,2rem) — H2, H3 section titles</td></tr>
+        <tr><td>Body Text</td><td>Bricolage Grotesque</td><td>400 / 500</td><td>15px / 16px — paragraphs, descriptions, cards</td></tr>
+        <tr><td>UI Labels, Tags, Eyebrows</td><td>JetBrains Mono</td><td>400 / 500</td><td>11–12px — badges, code, eyebrow labels, stats</td></tr>
+        <tr><td>CTA Buttons</td><td>Bricolage Grotesque</td><td>600</td><td>14px, letter-spacing: .02em</td></tr>
+        <tr><td>Navigation Links</td><td>Bricolage Grotesque</td><td>500</td><td>13–14px</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Gradient Specs -->
+  <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'JetBrains Mono',monospace;margin-top:1.5rem;">01C · SIGNATURE GRADIENTS</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:1.5rem;">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="height:50px;background:linear-gradient(135deg,#040d1a,#0b7a75,#00e5ff);"></div>
+      <div style="padding:.7rem 1rem;"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px;">Brand Gradient</div><div style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;">Hero text, logo areas</div></div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="height:50px;background:linear-gradient(135deg,#00c2cb,#1a6bcc);"></div>
+      <div style="padding:.7rem 1rem;"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px;">CTA Gradient</div><div style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;">Primary buttons, active states</div></div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="height:50px;background:radial-gradient(ellipse at center,rgba(0,194,203,0.25) 0%,transparent 70%);background-color:#040d1a;"></div>
+      <div style="padding:.7rem 1rem;"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px;">Radial Glow</div><div style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;">Behind hero, section openers</div></div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="height:50px;background:linear-gradient(180deg,#040d1a 0%,#0d2040 100%);"></div>
+      <div style="padding:.7rem 1rem;"><div style="font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px;">Section Fade</div><div style="font-size:11px;color:var(--text3);font-family:'JetBrains Mono',monospace;">Alternating background sections</div></div>
+    </div>
+  </div>
+
+  <!-- Global Components -->
+  <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;font-family:'JetBrains Mono',monospace;margin-top:1.5rem;">01D · GLOBAL COMPONENTS (present on every page)</div>
+  <div class="segment-list">
+    <div class="segment">
+      <div class="segment-name">🍪 Cookie Consent Banner <span class="seg-num">GDPR + IT ACT</span></div>
+      <div class="segment-desc">Fixed bottom bar on first visit. Background: var(--surface2), border-top: 1px solid var(--border2). Two buttons: "Accept All" (filled teal CTA) + "Manage Preferences" (ghost button). Manages: Analytics cookies, Marketing cookies, Functional cookies. Stores consent in localStorage. Banner auto-dismisses on accept. Re-opens from "Privacy Settings" link in footer. Implementation: vanilla JS, no library needed.</div>
+      <div class="segment-note">⚙ Required for: Google Analytics, Meta Pixel, Calendly embed, any 3rd party scripts</div>
+    </div>
+    <div class="segment">
+      <div class="segment-name">🔝 Sticky Navigation Bar</div>
+      <div class="segment-desc">Height: 64px. Background: rgba(4,13,26,0.92) with backdrop-filter:blur(20px). Logo left-aligned. Nav links center (Home, Services, Industries, Products, About, Blog). Right side: "Book a Call" CTA button (gradient fill, pill shape) + hamburger for mobile. On scroll past 80px: add subtle bottom border glow. Mobile: collapses to full-screen overlay menu with staggered link animations.</div>
+    </div>
+    <div class="segment">
+      <div class="segment-name">📞 Meeting Scheduler Widget (Calendly Embed)</div>
+      <div class="segment-desc">Floating action button (bottom-right corner, 56px circle, teal gradient background, calendar icon). On click: opens a slide-in panel from the right (width: 420px on desktop, full-screen on mobile) embedding the Calendly inline widget. Header: "Book Your Free AI Audit" with 30 min session tag. This persists across all pages. Alternative: embed full Calendly inline on /contact page as the primary CTA.</div>
+      <div class="segment-note">⚙ Calendly URL: embed via script tag. Customize colors to match brand (#00c2cb accent)</div>
+    </div>
+    <div class="segment">
+      <div class="segment-name">🦶 Footer</div>
+      <div class="segment-desc">4-column layout on desktop, 2-col on tablet, stacked on mobile. Col 1: Logo + 2-line tagline + social icons (LinkedIn, Twitter/X, Instagram). Col 2: Solutions (links to 4 service pages). Col 3: Company (About, Careers, Blog, Case Studies). Col 4: Contact (email, city, "Book a Call" CTA). Bottom bar: copyright + Privacy Policy link + Terms of Service link + "Privacy Settings" link (re-opens cookie panel). Background: var(--bg2). Top border: 1px linear-gradient glow.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION 2 — ANIMATIONS
+════════════════════════════════════════ -->
+<section class="section fade-up" id="animations">
+  <div class="section-header">
+    <div class="section-eyebrow">Section 02</div>
+    <div class="section-title">Animation & Motion Spec</div>
+    <div class="section-desc">Every animation listed here. Use GSAP for complex scroll + timeline effects. CSS transitions for micro-interactions. Respect prefers-reduced-motion by wrapping all GSAP in a media query check.</div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-ico">⚡</div>
+    <div>
+      <div class="callout-title">Animation Philosophy</div>
+      <div class="callout-body">Animations serve two purposes: guide attention and signal quality. Every animation must have a reason. No animation longer than 600ms on UI elements. Scroll reveals: 400ms ease-out. Hero entrance: 1.2s orchestrated timeline. Always: ease-out for entrances, ease-in for exits. GPU-accelerated only (transform, opacity — never animate width/height/top/left directly).</div>
+    </div>
+  </div>
+
+  <div class="anim-grid">
+    <div class="anim-card">
+      <div class="anim-type">Hero Section</div>
+      <div class="anim-title">Canvas Particle Network</div>
+      <div class="anim-desc">Animated SVG/Canvas network of nodes and connecting lines in the hero background — mimics the AIRIZZ logo's network topology. Nodes pulse softly. Lines draw between nearby nodes. On mouse-move: nearby nodes repel slightly (magnetic effect). Low opacity so it doesn't compete with text.</div>
+      <div class="anim-tech">vanilla canvas API</div>
+    </div>
+    <div class="anim-card">
+      <div class="anim-type">Hero Section</div>
+      <div class="anim-title">Staggered Text Reveal</div>
+      <div class="anim-desc">H1 headline: each word fades up with 80ms stagger delay. Subheadline: fades in 300ms after headline. CTA button: scales from 0.95 → 1.0 with a subtle glow pulse on entrance. Total entrance sequence: ~1.2 seconds orchestrated with GSAP timeline.</div>
+      <div class="anim-tech">GSAP timeline + SplitText</div>
+    </div>
+    <div class="anim-card">
+      <div class="anim-type">Scroll</div>
+      <div class="anim-title">Fade-Up on Scroll (Global)</div>
+      <div class="anim-desc">Every section heading, card, and feature block fades up (translateY: 30px → 0, opacity: 0 → 1) as it enters the viewport. Cards in grids stagger with 80ms delay per item. Implemented via IntersectionObserver for performance — no scroll event listeners.</div>
+      <div class="anim-tech">IntersectionObserver API</div>
+    </div>
+    <div class="anim-card">
+      <div class="anim-type">Scroll</div>
+      <div class="anim-title">Parallax Section Backgrounds</div>
+      <div class="anim-desc">Radial glow/mesh background elements in hero and stats sections move at 0.4× scroll speed relative to content (parallax). Creates depth without complexity. Only applied to background decorative elements — never to text or interactive elements.</div>
+      <div class="anim-tech">GSAP ScrollTrigger</div>
+    </div>
+    <div class="anim-card">
+      <div class="anim-type">Stats Section</div>
+      <div class="anim-title">Number Counter Animation</div>
+      <div class="anim-desc">Metric numbers count up from 0 to final value over 1.8 seconds when they enter the viewport. Easing: power2.out. Numbers display with comma formatting. Triggered once per page load — not repeated on re-scroll. Add "+" suffix where applicable.</div>
+      <div class="anim-tech">GSAP numTo / CountUp.js</div>
+    </div>
+    <div class="anim-card">
+      <div class="anim-type">Hover States</div>
+      <div class="anim-title">Card Hover Lift + Glow</div>
+      <div class="anim-desc">Service cards, case study cards: on hover → translateY(-4px), border-color shifts to var(--border2), a subtle inset box-shadow glow (0 0 20px rgba(0,194,203,0.12)) appears. Transition: 200ms ease-out. On mouse-leave: reverses in 150ms. Gives the "floating card" premium feel.</div>
+      <div class="anim-tech">CSS transition</div>
+    </div>
+    <div class="anim-card">
+      <div class="anim-type">Hover States</div>
+      <div class="anim-title">CTA Button Shimmer</div>
+      <div class="anim-desc">Primary CTA buttons: a shimmer/shine sweep animation plays on hover (pseudo-element with linear-gradient at 45°, translateX from -100% → 200% over 500ms). The gradient matches the brand colors. Click: subtle scale(0.97) press-down effect. Returns to normal on mouse-up.</div>
+      <div class="anim-tech">CSS keyframes + :hover</div>
+    </div>
+    <div class="anim-card">
+      <div class="anim-type">Navigation</div>
+      <div class="anim-title">Nav Link Underline Slide</div>
+      <div class="anim-desc">Desktop nav links: a teal underline (2px, gradient) slides in from left on hover, slides out on mouse-leave. Active page: underline is always visible. Nav bar: transitions background opacity from 0 to 0.92 after 80px scroll. Mobile menu: stagger-reveals links one by one (60ms delay per link).</div>
+      <div class="anim-tech">CSS transform + transition</div>
+    </div>
+    <div class="anim-card">
+      <div class="anim-type">Logo Strip</div>
+      <div class="anim-title">Infinite Client Logo Marquee</div>
+      <div class="anim-desc">Client logos / industry names scroll horizontally in an infinite loop (CSS animation, duplicated content for seamless wrap). Speed: ~40s per full cycle. On hover: pauses the marquee. Logos are grayscale at rest, full color on hover. Smooth with CSS transform — no JS needed.</div>
+      <div class="anim-tech">CSS @keyframes (translateX)</div>
+    </div>
+    <div class="anim-card">
+      <div class="anim-type">Industry Tabs</div>
+      <div class="anim-title">Tab Content Crossfade</div>
+      <div class="anim-desc">On tab switch: outgoing content fades out (opacity 1→0, 150ms), incoming content fades in + slides up slightly (opacity 0→1, translateY 8px→0, 250ms). Active tab indicator: teal underline slides horizontally to new active tab position (GSAP or CSS transition on left/width). Smooth, not jumpy.</div>
+      <div class="anim-tech">CSS transition + JS class toggle</div>
+    </div>
+    <div class="anim-card">
+      <div class="anim-type">Testimonials</div>
+      <div class="anim-title">Auto-Rotating Carousel</div>
+      <div class="anim-desc">Testimonial cards auto-advance every 5 seconds with a smooth horizontal slide transition (transform: translateX). Drag/swipe enabled on mobile (touch events). Dots indicator at bottom. On hover: pauses auto-rotation. Navigation: prev/next arrow buttons with the teal accent style.</div>
+      <div class="anim-tech">CSS transitions + touch events</div>
+    </div>
+    <div class="anim-card">
+      <div class="anim-type">Process Steps</div>
+      <div class="anim-title">Step Line Draw Animation</div>
+      <div class="anim-desc">The vertical connecting line between process steps "draws" downward as each step enters the viewport (SVG stroke-dashoffset animation). Each step circle pulses once when it becomes active. Steps reveal sequentially with 200ms delay. Creates a sense of progression and momentum.</div>
+      <div class="anim-tech">SVG stroke-dashoffset + GSAP</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-ico">♿</div>
+    <div>
+      <div class="callout-title">Accessibility Rule</div>
+      <div class="callout-body">Always wrap GSAP animations in: <code style="background:var(--bg3);padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:12px;">if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches)</code>. Users who have reduced motion enabled in OS settings should see instant reveals, not animated ones. This is WCAG 2.1 AA compliance.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION 3 — HOMEPAGE
+════════════════════════════════════════ -->
+<section class="section fade-up" id="home">
+  <div class="section-header">
+    <div class="section-eyebrow">Page 01</div>
+    <div class="section-title">Homepage — / (index)</div>
+    <div class="section-desc">The highest-traffic page. Every element must serve one of two goals: build trust or drive a booking. 8 core sections below, in exact scroll order.</div>
+  </div>
+  <div class="info-row">
+    <span class="info-pill"><span class="ip-dot" style="background:var(--amber)"></span>Status: Exists — Major CRO Upgrade Required</span>
+    <span class="info-pill"><span class="ip-dot" style="background:var(--accent)"></span>Primary CTA: Book Free AI Audit</span>
+    <span class="info-pill"><span class="ip-dot" style="background:var(--green)"></span>Goal: Trust + Conversion</span>
+  </div>
+
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">🚀</div> Sticky Navigation</div>
+      <span class="status-exists status-tag">Global Component</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Nav Bar <span class="seg-num">64px height</span></div>
+          <div class="segment-desc">Left: AIRIZZ logo (SVG, links to /). Center: Home · Services (dropdown) · Industries (dropdown) · Products · About · Blog · Case Studies. Right: "Book a Call" pill button (gradient background, teal). On mobile: hamburger → full-overlay slide-in menu. Background transitions from transparent to frosted glass after 80px scroll.</div>
+          <div class="segment-note">⚙ Dropdown for Services: 4 items. Dropdown for Industries: 3 items. Both open on hover (desktop) and tap (mobile).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">🎯</div> Hero Section</div>
+      <span class="status-upgrade status-tag">Rewrite Required</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Hero Background <span class="seg-num">fullscreen</span></div>
+          <div class="segment-desc">Dark navy base (var(--bg)). Canvas particle network animation behind all content (low opacity, brand-colored nodes). Radial glow centered behind the headline. Subtle grid-line texture overlay at 3% opacity. NO stock imagery — the particle network IS the visual.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Eyebrow Tag <span class="seg-num">above headline</span></div>
+          <div class="segment-desc">Small pill tag: "Enterprise-Grade AI Solutions" — teal border, dark background, pulsing dot. Font: JetBrains Mono 11px. This sets context immediately before the headline is read.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Hero Headline <span class="seg-num">H1 — most important</span></div>
+          <div class="segment-desc">REWRITE from current generic version. New copy direction: "We help Indian SMBs and scaling enterprises eliminate manual work, unify their data, and grow revenue — with bespoke AI." Gradient text (navy→teal→cyan). Clash Display 700, clamp(2.2rem,5vw,3.5rem). Staggered word reveal on page load.</div>
+          <div class="segment-note">⚙ Key change: specific buyer (Indian SMBs + enterprises), specific outcome (eliminate manual work, grow revenue), differentiator (bespoke AI)</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Subheadline <span class="seg-num">H2 — supporting</span></div>
+          <div class="segment-desc">Max 2 lines: "From CRM integrations and marketing automation to custom AI agents — AIRIZZ is the technical partner that turns your data into decisions." Bricolage Grotesque 16px, color: var(--text2). Max-width: 560px, centered.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">CTA Buttons <span class="seg-num">2 max, clear hierarchy</span></div>
+          <div class="segment-desc">PRIMARY: "Book Your Free Strategy Audit →" — gradient fill (teal→blue), pill shape, 48px height, shimmer hover animation. SECONDARY: "Explore Our Work" — ghost button (teal border, transparent bg). Secondary is visually smaller and sits below/after primary. No equal competition between the two.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Trust Strip <span class="seg-num">below buttons</span></div>
+          <div class="segment-desc">Small row: 3-4 client logo silhouettes OR "Trusted by 20+ companies across Manufacturing · Healthcare · Legal · Retail" in mono font. Separates CTA area from hero body. Adds credibility at the critical above-the-fold moment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">📊</div> Social Proof / Stats Bar</div>
+      <span class="status-new status-tag">New Section</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Metrics Row <span class="seg-num">3–4 stats, animated counters</span></div>
+          <div class="segment-desc">Full-width section, slightly different background (var(--bg2)). 3–4 metric cards in a row: stat number (large, gradient text, counter animation) + label + supporting line. Example stats: "₹4Cr+" / Revenue Generated for Clients | "40%" / Average Reduction in Manual Tasks | "72hrs" / Average First Delivery | "12+" / Industries Served. Pre-render values (no 0-start bug). Numbers count up on scroll-enter.</div>
+          <div class="segment-note">⚙ Replace current weak numbers (4 deployments, 1X) with outcome metrics even if estimated conservatively</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Client Logo Marquee <span class="seg-num">infinite scroll</span></div>
+          <div class="segment-desc">Below the stats: "Trusted by teams at" header + infinite horizontal scrolling strip of client logos. Logos: white/gray at rest, teal tint on hover. If real logos have NDA issues: use industry icon + "Client in [Industry]" placeholder. CSS-only infinite scroll animation, pauses on hover.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">🧩</div> Problem / Solution Section</div>
+      <span class="status-upgrade status-tag">Enhance Existing</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Problem Framing <span class="seg-num">"Stop Guessing" rewritten</span></div>
+          <div class="segment-desc">2-column layout: LEFT — 3 pain point cards (each with an icon, bold problem statement, and 1-line consequence). Pain points: "Scattered data silos" / "Manual tasks eating team hours" / "Fragmented tools with no unified view". RIGHT — short punchy paragraph with AIRIZZ as the bridge. Bold headline: "Your data is an untapped goldmine. We mine it for you." Background: slightly different section color.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">⚙️</div> Services Grid</div>
+      <span class="status-upgrade status-tag">Upgrade Existing</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Services 2×2 Grid <span class="seg-num">4 service cards</span></div>
+          <div class="segment-desc">Section title: "Tailored Solutions for Modern Businesses". 4 cards in a 2×2 grid (desktop), 1-col stack (mobile). Each card: Icon (teal, custom SVG) + Service name + 2-line outcome description + ONE result stat (e.g. "avg. 3-week delivery") + "Learn More →" teal link. Featured card (e.g. AI Consulting): has a teal accent border-left or a subtle gradient background to visually distinguish it. Hover: card lift + glow animation.</div>
+          <div class="segment-note">⚙ Services: Product Engineering · AI Consulting for SMB · Data Integration · Marketing Automation Agency</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">🏭</div> Industries Section</div>
+      <span class="status-upgrade status-tag">Upgrade — Add Links</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Industry Tabs <span class="seg-num">3 tabs, animated switch</span></div>
+          <div class="segment-desc">3 tabs: Traditional SME · Legal & Finance · Manufacturing & Logistics. Tab switch: crossfade content animation. Each tab panel: LEFT — headline + 3 bullet pain points (with checkmark icons in teal) + "Explore [Industry] Solutions →" link. RIGHT — relevant screenshot or illustration. Mobile: converts to vertical accordion (chevron icon, expands/collapses). Each tab links to its dedicated industry page (/industries/[slug]).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">💬</div> Social Proof / Testimonials</div>
+      <span class="status-new status-tag">New Section — Critical</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Testimonial Carousel <span class="seg-num">auto-rotating, 5s interval</span></div>
+          <div class="segment-desc">Section title: "What Our Clients Say". 3 testimonial cards in a horizontal carousel. Each card: Quote text (2–3 sentences with hard metric) + Client name + Company + Role + LinkedIn profile link icon. Star rating (5 stars, teal). Auto-advances every 5s, pauses on hover/touch. Dot navigation at bottom. On mobile: swipeable. Background: var(--bg2) for contrast.</div>
+          <div class="segment-note">⚙ If no testimonials yet: use LinkedIn recommendations as screenshot cards. Even 2 real ones convert far better than 0.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Featured Case Study Teaser <span class="seg-num">below carousel</span></div>
+          <div class="segment-desc">One large horizontal card: Industry badge + "Case Study" label + short outcome headline ("How we reduced invoice processing time by 62% for a Bangalore logistics firm") + 3 metric pills (time saved, cost reduced, delivery speed) + "Read Full Case Study →" CTA. Background: slightly elevated surface with teal border-left accent. Links to /case-studies/[slug].</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">📅</div> CTA / Booking Section</div>
+      <span class="status-new status-tag">New Section</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Bottom CTA Band <span class="seg-num">full-width, high contrast</span></div>
+          <div class="segment-desc">Full-width section, background: linear-gradient (deep navy with teal radial glow center). Centered content: "Ready to build your AI advantage?" headline + 2-line supporting text + single large "Book Your Free 30-Min Strategy Audit" CTA button. Below button: 3 reassurance points in a row (icon + text): ✓ No commitment required · ✓ Get a custom roadmap · ✓ Response within 24 hours. This is the final conversion push before the footer.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION 4 — SERVICES
+════════════════════════════════════════ -->
+<section class="section fade-up" id="services">
+  <div class="section-header">
+    <div class="section-eyebrow">Page 02</div>
+    <div class="section-title">Services Pages (×4)</div>
+    <div class="section-desc">Each of the 4 services gets its own dedicated page. Same template structure, unique content per service. URL structure: /services/[slug].</div>
+  </div>
+  <div class="info-row">
+    <span class="info-pill"><span class="ip-dot" style="background:var(--amber)"></span>Status: Exists — Add Depth</span>
+    <span class="info-pill"><span class="ip-dot" style="background:var(--accent)"></span>4 Pages: Product Engineering · AI Consulting · Data Integration · Marketing Automation</span>
+  </div>
+
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">📋</div> Service Page Template (applies to all 4)</div>
+      <span class="status-upgrade status-tag">Upgrade Existing</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Service Hero <span class="seg-num">top of page</span></div>
+          <div class="segment-desc">Breadcrumb: Home › Services › [Service Name]. Eyebrow tag: service category. H1: specific outcome headline ("Build AI-powered products that scale — from prototype to production"). 1-para description. 2 stats pills (e.g. "Avg. 3-week MVP delivery" + "10+ products shipped"). CTA: "Start Your Project →" booking button. Right side: relevant icon/SVG illustration or animated diagram.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">What We Do (details) <span class="seg-num">feature breakdown</span></div>
+          <div class="segment-desc">3-column feature grid: each feature has an icon + title + 2-line description. E.g. for Product Engineering: "AI-Powered SaaS" · "Mobile-First Builds" · "API & Integration Layer" · "Performance Optimization" · "Tech Stack Advisory" · "Ongoing Support". This section answers: exactly what does this service include?</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Our Process <span class="seg-num">step-by-step vertical</span></div>
+          <div class="segment-desc">4–5 step process with animated connecting line (SVG stroke-dashoffset draw animation on scroll). Each step: step number (circle, teal) + step name + description + estimated time. E.g.: Discovery Call (Day 1) → Scope & Roadmap (Day 2–3) → Build Sprint (Week 1–3) → Review & Iterate (Week 4) → Launch & Handoff (Week 5).</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Mini Case Study <span class="seg-num">inline proof</span></div>
+          <div class="segment-desc">One compact case study card inline on this page: Client industry tag + problem in 1 sentence + solution in 1 sentence + 2–3 result metrics (big number + label). CTA: "See Full Case Study →". This is the most conversion-critical content on service pages — it proves you've done this before.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Pricing Anchor <span class="seg-num">new section</span></div>
+          <div class="segment-desc">Simple 3-card pricing tier OR a "How we charge" explainer. For consulting: "Starter Project" / "Growth Partnership" / "Enterprise Engagement" — each with a price range (₹50K+ / ₹2L+ / Custom) + 3–4 inclusions. NOT a full pricing page — just enough to qualify leads. CTA on each card: "Get a Proposal for This Tier →".</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Related Services <span class="seg-num">cross-links footer</span></div>
+          <div class="segment-desc">3 cards linking to the other 3 service pages with a short "Pairs well with this service" line. Keeps visitors exploring rather than bouncing. Followed by the bottom booking CTA band (same as homepage).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     SECTION 5 — ABOUT US
+════════════════════════════════════════ -->
+<section class="section fade-up" id="about">
+  <div class="section-header">
+    <div class="section-eyebrow">Page 03</div>
+    <div class="section-title">About Us — /about</div>
+    <div class="section-desc">The trust-building page. B2B buyers are buying people, not logos. Real faces, real story, real mission. Currently broken (links to #). Build this before anything else after the homepage.</div>
+  </div>
+  <div class="info-row">
+    <span class="info-pill"><span class="ip-dot" style="background:var(--red)"></span>Status: Missing — Build Now</span>
+    <span class="info-pill"><span class="ip-dot" style="background:var(--accent)"></span>Priority: Highest after Homepage</span>
+  </div>
+
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">🏢</div> About Page Sections</div>
+      <span class="status-new status-tag">Build New</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Founding Story <span class="seg-num">hero of About page</span></div>
+          <div class="segment-desc">H1: "We started AIRIZZ because we were tired of watching good businesses lose to bad data." 2–3 paragraphs: why the company was founded, what problem the founders saw, what makes AIRIZZ different. Keep it human — no corporate speak. Reference specific founding moments. Background: radial glow, same dark theme.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Mission & Values <span class="seg-num">3 core values</span></div>
+          <div class="segment-desc">H2: "What We Stand For". 3 value cards (icon + name + 2-line description): e.g. "Outcomes over outputs" / "Radical transparency" / "Build for the long term". These differentiate AIRIZZ from transactional dev shops. Values inform how you work, not just what you do.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Team Section <span class="seg-num">photos essential</span></div>
+          <div class="segment-desc">H2: "The Team". Cards for each team member: Photo (circular crop, 100px) + Name + Role + 1-line bio + LinkedIn icon link. On hover: card slightly elevates. For founders: add a longer bio card (2–3 lines). Even a team of 3–4 people with real photos builds 10× more trust than a logo. Include advisors/partners if relevant.</div>
+          <div class="segment-note">⚙ Photos: professional but approachable, not overly formal. Same background treatment (dark, consistent).</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Company Timeline <span class="seg-num">optional but powerful</span></div>
+          <div class="segment-desc">Vertical timeline: founding year → first client → first industry expansion → current milestone. Each event: year badge + title + 1-line description. The SVG line-draw animation works perfectly here. Shows trajectory and momentum even for a young company.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Headquarters / Location</div>
+          <div class="segment-desc">"Enterprise HQ, India" with actual city (Bangalore/other). Optionally embed a small Google Maps card. Contact email prominently displayed. This grounds the company geographically — important for Indian enterprise buyers who prefer local vendors.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CASE STUDIES -->
+<section class="section fade-up" id="case-studies">
+  <div class="section-header">
+    <div class="section-eyebrow">Page 04</div>
+    <div class="section-title">Case Studies — /case-studies</div>
+    <div class="section-desc">The single highest-converting content type for a consulting firm. Even 2 well-written case studies will dramatically improve trust and close rate.</div>
+  </div>
+  <div class="info-row">
+    <span class="info-pill"><span class="ip-dot" style="background:var(--red)"></span>Status: Missing — Critical</span>
+  </div>
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">📈</div> Case Studies Page + Individual Study Template</div>
+      <span class="status-new status-tag">Build New</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Case Study Index <span class="seg-num">/case-studies listing</span></div>
+          <div class="segment-desc">Grid of case study cards. Each card: Industry tag + Client type + Result headline ("62% reduction in processing time") + 2–3 metric pills + "Read Case Study →" link + service tags. Filter bar at top: filter by Industry or Service type. Start with 2–3 studies minimum.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Individual Case Study Template <span class="seg-num">/case-studies/[slug]</span></div>
+          <div class="segment-desc">Sections in order: (1) Result headline + 3 big metric cards at top. (2) Client background (anonymised if needed: "Mid-sized logistics firm, Bangalore, 120 employees"). (3) The Challenge: what pain they had. (4) Our Approach: what AIRIZZ built/implemented (with screenshots if available). (5) The Results: expanded metrics with context. (6) Client Quote: testimonial with photo/name if permitted. (7) Tech stack used. (8) CTA: "Have a similar challenge? Book a call."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BLOG -->
+<section class="section fade-up" id="blog">
+  <div class="section-header">
+    <div class="section-eyebrow">Page 05</div>
+    <div class="section-title">Blog / Insights — /blog</div>
+    <div class="section-desc">Long-term SEO engine. Target long-tail, high-intent keywords. Positions AIRIZZ as the go-to authority for AI consulting in India.</div>
+  </div>
+  <div class="info-row">
+    <span class="info-pill"><span class="ip-dot" style="background:var(--red)"></span>Status: Missing</span>
+    <span class="info-pill"><span class="ip-dot" style="background:var(--blue-hi)"></span>Target: 2 articles/month</span>
+  </div>
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">✍️</div> Blog Page Structure</div>
+      <span class="status-new status-tag">Build New</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Blog Listing Page <span class="seg-num">/blog</span></div>
+          <div class="segment-desc">Hero: "Insights & Intelligence" headline + tagline. Featured post: large hero card (latest article, full-width, image if available). Below: 2–3 column article grid. Each card: Category tag + Title + 2-line excerpt + Read time + Date + "Read More →". Sidebar (desktop): categories + recent posts + Newsletter signup form (name + email, "Get AI insights weekly"). Tag/category filter at top.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Blog Article Template <span class="seg-num">/blog/[slug]</span></div>
+          <div class="segment-desc">Left: article content (750–1500 word posts). Right: sticky sidebar with: Author card + estimated read time + "Book a Free Audit" CTA card + Related articles. Article content: H2/H3 structure for SEO, callout boxes for key takeaways, relevant images/diagrams, internal links to service pages, end-of-article CTA. SEO: meta title, meta description, OG tags for each post.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">First 10 Article Topics <span class="seg-num">SEO-targeted</span></div>
+          <div class="segment-desc">(1) AI automation for Indian SMBs: where to start. (2) How to cut CRM data entry time by 80% with n8n. (3) Marketing automation for legal firms in India. (4) What is a generative AI agent (plain language for business owners). (5) 5 data integration mistakes Indian manufacturing firms make. (6) How AI consulting differs from software development. (7) ROI calculator: what AI automation saves your team annually. (8) AIRIZZ case study: reducing logistics billing errors by 70%. (9) How to choose an AI vendor in India (checklist). (10) What Indian enterprises need to know before adopting LLMs.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INDUSTRIES -->
+<section class="section fade-up" id="industries">
+  <div class="section-header">
+    <div class="section-eyebrow">Pages 06–08</div>
+    <div class="section-title">Industry Pages (×3) — /industries/[slug]</div>
+    <div class="section-desc">Dedicated pages per vertical. Crucial for SEO and for enterprise buyers who need to see you understand their specific industry before they'll engage.</div>
+  </div>
+  <div class="info-row">
+    <span class="info-pill"><span class="ip-dot" style="background:var(--red)"></span>Status: Missing</span>
+    <span class="info-pill"><span class="ip-dot" style="background:var(--accent)"></span>3 Pages: /industries/traditional-sme · /industries/legal-finance · /industries/manufacturing</span>
+  </div>
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">🏭</div> Industry Page Template (same structure for all 3)</div>
+      <span class="status-new status-tag">Build New</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Industry Hero <span class="seg-num">specific to vertical</span></div>
+          <div class="segment-desc">H1 written for that industry's buyer: "AI solutions built for legal & finance teams" (not generic). Sub: 2-line description of their specific pain. 3 pain-point icons below (industry-specific). Primary CTA: "See How We've Helped Legal Firms →" (links to relevant case study). Secondary: "Book Industry Consultation →".</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Industry Pain Points <span class="seg-num">show you understand them</span></div>
+          <div class="segment-desc">3 cards: each with an industry-specific pain (e.g. Legal: "Manual contract review bottlenecks" / "Compliance tracking across jurisdictions" / "Client onboarding taking 2 weeks"). Each card has the problem → consequence → AIRIZZ solution in 2–3 lines. This section is the most important for enterprise sales — it shows industry knowledge.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Relevant Services for This Industry <span class="seg-num">cross-link</span></div>
+          <div class="segment-desc">Which of the 4 AIRIZZ services apply to this industry? Show them as 2–3 mini service cards (icon + name + 1-line relevance). E.g. for Legal: AI Consulting (contract analysis agents) + Data Integration (case management + billing systems) + Marketing Automation (client nurture). Each links to the full service page.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Industry Case Study + CTA</div>
+          <div class="segment-desc">Mini case study card specific to this industry (or "coming soon" with a waitlist). Bottom booking CTA: "Speak to our [Industry] specialist" — makes it feel personalised.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<section class="section fade-up" id="pricing">
+  <div class="section-header">
+    <div class="section-eyebrow">Page 09</div>
+    <div class="section-title">Pricing / Investment — /pricing</div>
+    <div class="section-desc">Reduces bounce from price-anxious visitors. Doesn't need exact prices — just enough to let visitors self-qualify.</div>
+  </div>
+  <div class="info-row">
+    <span class="info-pill"><span class="ip-dot" style="background:var(--red)"></span>Status: Missing</span>
+  </div>
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">💰</div> Pricing Page Structure</div>
+      <span class="status-new status-tag">Build New</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">3-Tier Model <span class="seg-num">Starter / Growth / Enterprise</span></div>
+          <div class="segment-desc">3 cards side-by-side: STARTER (₹50K–₹2L) — ideal for SMBs, single-service engagement, defined scope, fixed deliverable. GROWTH PARTNERSHIP (₹2L–₹10L) — multi-service, ongoing support, monthly retainer option, dedicated POC. ENTERPRISE (Custom) — full transformation, custom AI agents, dedicated team pod, SLA. Each: 4–5 inclusions, CTA button, "Most Popular" badge on Growth tier. Below: "Not sure which tier fits?" → FAQ accordion.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">How We Charge <span class="seg-num">explainer section</span></div>
+          <div class="segment-desc">2-column: LEFT — short text explaining AIRIZZ's pricing philosophy (project-based, outcome-driven, no hidden costs). RIGHT — 3 engagement models: Fixed Scope Project / Monthly Retainer / Dedicated Pod. Each with a 2-line description and when it's the right fit. Transparent and trustworthy tone.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Pricing FAQ <span class="seg-num">accordion</span></div>
+          <div class="segment-desc">6–8 FAQ items: "Do you offer payment in installments?" / "What's included in a free audit?" / "How long does a typical engagement last?" / "Do you work with early-stage startups?" / "What if I need to pause or extend?" Accordion opens with smooth height animation. Reduces sales call volume by pre-answering objections.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section class="section fade-up" id="contact">
+  <div class="section-header">
+    <div class="section-eyebrow">Page 10</div>
+    <div class="section-title">Contact / Book a Call — /contact</div>
+    <div class="section-desc">The final conversion page. Upgrade from a plain contact form to a high-converting booking experience. Every element here should reduce friction and anxiety.</div>
+  </div>
+  <div class="info-row">
+    <span class="info-pill"><span class="ip-dot" style="background:var(--amber)"></span>Status: Exists — Major Upgrade</span>
+  </div>
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">📞</div> Contact Page Sections</div>
+      <span class="status-upgrade status-tag">Upgrade Existing</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Page Hero <span class="seg-num">conversion-focused</span></div>
+          <div class="segment-desc">H1: "Let's Build Your AI Advantage" (not generic "Contact Us"). Sub: "Book a free 30-minute strategy audit. We'll map out exactly where AI can save your team time and grow your revenue — no commitment, no jargon." This copy pre-sells the value of booking before the form is shown.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Calendly Inline Embed <span class="seg-num">PRIMARY conversion action</span></div>
+          <div class="segment-desc">Full Calendly inline widget embedded as the main content of the page. Calendly customised with brand colors (background: var(--bg), accent: var(--accent)). Session type: "30-Min AI Strategy Audit". Below: reassurance row — ✓ No commitment ✓ Custom roadmap ✓ Reply within 24h. The Calendly embed IS the form — no separate contact form competing with it.</div>
+          <div class="segment-note">⚙ Also add: floating Calendly button on all pages (bottom-right, persistent, 56px circle) for one-click booking from anywhere on the site</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Backup Contact Form <span class="seg-num">for non-schedulers</span></div>
+          <div class="segment-desc">Below the Calendly: "Prefer to send a message instead?" — simple 4-field form: Name + Email + Company + Message + "What service interests you?" (dropdown). Submit button. No CAPTCHA on first load (reduces friction). Form submission: JS fetch to email service (EmailJS / Formspree — no backend needed). Success state: animated checkmark + "We'll reply within 24 hours."</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Trust Sidebar <span class="seg-num">right of form, desktop</span></div>
+          <div class="segment-desc">On desktop: right-side column shows a testimonial quote + client name + company + the 3 metrics from their engagement. Below that: "What happens after you book" — 3-step mini process: (1) Intro call → (2) Custom roadmap → (3) Proposal within 48h. This reduces anxiety at the most critical conversion moment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LEGAL PAGES -->
+<section class="section fade-up" id="legal">
+  <div class="section-header">
+    <div class="section-eyebrow">Pages 11–12</div>
+    <div class="section-title">Privacy Policy & Terms of Service</div>
+    <div class="section-desc">Currently linked in the footer but going to "#". Required for IT Act compliance, GDPR (if serving EU clients), and enterprise due diligence. Build these before pitching any enterprise client.</div>
+  </div>
+  <div class="info-row">
+    <span class="info-pill"><span class="ip-dot" style="background:var(--blue-hi)"></span>Status: Missing — Legal Requirement</span>
+  </div>
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">⚖️</div> Legal Pages</div>
+      <span class="status-legal status-tag">Legal Requirement</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Privacy Policy — /privacy-policy</div>
+          <div class="segment-desc">Use Termly.io or PrivacyPolicies.com free generators (15 min to create). Include: what data is collected (name, email, cookie data), how it's used, third-party services (Google Analytics, Calendly, Meta Pixel if used), user rights (access, deletion), contact for privacy requests. Same dark theme as rest of site — styled with left-aligned content, max-width 760px, branded headings.</div>
+          <div class="segment-note">⚙ Tool: termly.io free plan — covers IT Act 2000, GDPR, CCPA</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Terms of Service — /terms-of-service</div>
+          <div class="segment-desc">Covers: use of website, intellectual property (AIRIZZ owns its content), limitation of liability, governing law (India), contact for disputes. Keep it concise — 600–800 words. Use the same free generator tools. This page is read by procurement teams and legal reviewers before enterprise contracts are signed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CAREERS -->
+<section class="section fade-up" id="careers">
+  <div class="section-header">
+    <div class="section-eyebrow">Page 13</div>
+    <div class="section-title">Careers — /careers</div>
+    <div class="section-desc">Signals company growth and ambition. Enterprise buyers assess team size during due diligence. A careers page — even with 2–3 roles — tells the story of a scaling company.</div>
+  </div>
+  <div class="info-row">
+    <span class="info-pill"><span class="ip-dot" style="background:var(--red)"></span>Status: Missing</span>
+  </div>
+  <div class="page-card">
+    <div class="page-card-header">
+      <div class="page-card-title"><div class="page-icon">👥</div> Careers Page</div>
+      <span class="status-new status-tag">Build New</span>
+    </div>
+    <div class="page-card-body">
+      <div class="segment-list">
+        <div class="segment">
+          <div class="segment-name">Culture / Why AIRIZZ <span class="seg-num">hero of Careers page</span></div>
+          <div class="segment-desc">H1: "Build the future of AI in India. Join us." 2–3 culture bullets: "Work on real enterprise AI problems from day 1" / "Small team, massive ownership" / "Remote-first, async culture". 3 perks cards (icon + perk name + 1-line description). Honest and direct — not corporate fluff.</div>
+        </div>
+        <div class="segment">
+          <div class="segment-name">Open Roles <span class="seg-num">listing with details</span></div>
+          <div class="segment-desc">Even 2–3 open roles: each card shows Role title + Team + Location (Remote/Hybrid) + Type (Full-time/Internship/Contract) + 2-line description. "Apply Now" opens a modal with a simple form: Name, Email, Resume upload (stored via Formspree or EmailJS — no backend). "Don't see your role? Send us an open application" link at bottom.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ════════════════════════════════════════
+     TECH STACK
+════════════════════════════════════════ -->
+<section class="section fade-up" id="tech-stack">
+  <div class="section-header">
+    <div class="section-eyebrow">Section Final</div>
+    <div class="section-title">Recommended Tech Stack (Frontend Only)</div>
+    <div class="section-desc">No backend required. All forms use third-party services. All booking via Calendly. Hosting on Vercel or Netlify. Build time: 4–6 weeks for a developer who knows this stack.</div>
+  </div>
+
+  <div class="tech-grid">
+    <div class="tech-card"><div class="tech-name">Next.js 15</div><div class="tech-role">Framework (App Router)</div></div>
+    <div class="tech-card"><div class="tech-name">Tailwind CSS</div><div class="tech-role">Utility styling</div></div>
+    <div class="tech-card"><div class="tech-name">Framer Motion</div><div class="tech-role">Component animations</div></div>
+    <div class="tech-card"><div class="tech-name">GSAP + ScrollTrigger</div><div class="tech-role">Scroll & hero animations</div></div>
+    <div class="tech-card"><div class="tech-name">Lenis</div><div class="tech-role">Smooth scroll inertia</div></div>
+    <div class="tech-card"><div class="tech-name">Canvas API</div><div class="tech-role">Particle network hero</div></div>
+    <div class="tech-card"><div class="tech-name">Calendly Embed</div><div class="tech-role">Meeting scheduler</div></div>
+    <div class="tech-card"><div class="tech-name">Formspree / EmailJS</div><div class="tech-role">Contact form (no backend)</div></div>
+    <div class="tech-card"><div class="tech-name">Vercel</div><div class="tech-role">Hosting + deployment</div></div>
+    <div class="tech-card"><div class="tech-name">Google Analytics 4</div><div class="tech-role">Traffic analytics</div></div>
+    <div class="tech-card"><div class="tech-name">Microsoft Clarity</div><div class="tech-role">Heatmaps (free)</div></div>
+    <div class="tech-card"><div class="tech-name">Contentlayer / MDX</div><div class="tech-role">Blog CMS (file-based)</div></div>
+  </div>
+
+  <div class="callout">
+    <div class="callout-ico">🗺️</div>
+    <div>
+      <div class="callout-title">Suggested Build Order</div>
+      <div class="callout-body">
+        <strong style="color:var(--text)">Week 1–2:</strong> Design system setup + Homepage (hero, stats, services, testimonials, CTA) + Navbar + Footer + Cookie banner<br>
+        <strong style="color:var(--text)">Week 3:</strong> About page + Contact page (Calendly embed) + Privacy Policy + Terms of Service<br>
+        <strong style="color:var(--text)">Week 4:</strong> All 4 Service pages (using shared template) + Careers page<br>
+        <strong style="color:var(--text)">Week 5:</strong> 3 Industry pages + Pricing page + Blog listing + First 3 blog articles<br>
+        <strong style="color:var(--text)">Week 6:</strong> Case Studies index + 2 case study pages + SEO meta tags + Performance audit + Launch
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>AIRIZZ Website Blueprint v1.0</strong> — Complete page-by-page specification</p>
+  <p style="margin-top:6px;">13 pages · 60+ segments · Full design system · Animation spec · Tech stack · Build roadmap</p>
+  <p style="margin-top:6px;">Prepared for internal development handoff — June 2026</p>
+</footer>
+
+<script>
+// Active nav on scroll
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const a = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if (a) { a.classList.add('active'); a.scrollIntoView({block:'nearest',inline:'center'}); }
+    }
+  });
+}, { threshold: 0.25 });
+sections.forEach(s => io.observe(s));
+
+// Fade-up on scroll
+const faders = document.querySelectorAll('.fade-up');
+const fo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); fo.unobserve(e.target); }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+faders.forEach(el => fo.observe(el));
+</script>
+</body>
+</html>
